@@ -1,1 +1,1 @@
-# library-proj
+# This repository contains the files for my version of the Library project from the Odin Project.
