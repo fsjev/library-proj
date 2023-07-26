@@ -5,8 +5,14 @@ const themeToggles = {
 const themeToggleBtns = document.querySelectorAll(".theme-toggle");
 const root = document.documentElement;
 const addBookBtn = document.getElementById("add-book");
+const form = document.querySelector("form");
+const shadow = document.querySelector("#form-shadow");
+const cancelBtn = document.getElementById("cancel");
+const okBtn = document.getElementById("ok");
 
-// addBookBtn.addEventListener("click", )
+addBookBtn.addEventListener("click", showForm);
+cancelBtn.addEventListener("click", hideForm);
+// okBtn.addEventListener("click", );
 themeToggleBtns.forEach(toggleBtn => toggleBtn.addEventListener("click", switchTheme));
 
 showCorrectThemeToggle();
@@ -63,5 +69,15 @@ function showCorrectThemeToggle(){
 };
 
 function showForm(){
-    
+    if(form.className === "hide"){
+        shadow.setAttribute("class", "show");
+        form.setAttribute("class", "show");
+    }else{
+        shadow.setAttribute("class", "hide");
+        form.setAttribute("class", "hide");
+    }
+};
+function hideForm(){
+    shadow.setAttribute("class", "hide");
+    form.setAttribute("class", "hide");
 };
