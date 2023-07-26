@@ -1,17 +1,21 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <script src="main.js"></script>
+    <script src="main.js" defer></script>
     <title>Document</title>
 </head>
 <body>
     <header>
         <div class="container">
             <div class="title">Library</div>
+            <div class="theme-toggles">
+                <ion-icon id="on" class="theme-toggle" name="flash-outline"></ion-icon>
+                <ion-icon id="off" class="theme-toggle" name="flash-off-outline"></ion-icon>
+            </div>
         </div>
     </header>
     <main>
@@ -28,6 +32,38 @@
             <ion-icon name="logo-github"></ion-icon>
         </div>
     </footer>
+    <div class="form-shadow"></div>
+    <form action="">
+        <div>
+            <label for="author">Author</label><br>
+            <input type="text" name="" id="author">
+        </div>
+        <div>
+            <label for="title">Title</label><br>
+            <input type="text" name="" id="title">
+        </div>
+        <div>
+            <label for="page-number">Number of Pages</label><br>
+            <input type="text" name="" id="page-number">
+        </div>
+        <div>
+            <p>Have you read it?</p>
+            <div class="radios">
+                <div>
+                    <label class="normal" for="yes">Yes</label>
+                    <input type="radio" name="read-book" id="yes" value="yes">
+                </div>
+                <div>
+                    <label class="normal" for="no">No</label>
+                    <input type="radio" name="read-book" id="no" value="no">
+                </div>
+            </div>
+        </div>
+        <div class="choices">
+            <div class="cancel">Cancel</div>
+            <div class="ok">Ok</div>
+        </div>
+    </form>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
 </body>
