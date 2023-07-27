@@ -9,9 +9,18 @@ const form = document.querySelector("form");
 const shadow = document.querySelector("#form-shadow");
 const cancelBtn = document.getElementById("cancel");
 const okBtn = document.getElementById("ok");
+const authorInput = document.getElementById("author");
+const titleInput = document.getElementById("title");
+const pageNumberInput = document.getElementById("page-number");
+const radioBtns = {
+    yes: document.getElementById("yes"),
+    no: document.getElementById("no")
+};
+
 
 addBookBtn.addEventListener("click", showForm);
 cancelBtn.addEventListener("click", hideForm);
+shadow.addEventListener("click", hideForm);
 // okBtn.addEventListener("click", );
 themeToggleBtns.forEach(toggleBtn => toggleBtn.addEventListener("click", switchTheme));
 
@@ -77,7 +86,17 @@ function showForm(){
         form.setAttribute("class", "hide");
     }
 };
+
 function hideForm(){
     shadow.setAttribute("class", "hide");
     form.setAttribute("class", "hide");
+    clearForm();
+};
+
+function clearForm(){
+    authorInput.value = "";
+    titleInput.value = "";
+    pageNumberInput.value = "";
+    radioBtns.yes.checked = false;
+    radioBtns.no.checked = false;
 };
