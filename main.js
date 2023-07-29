@@ -14,6 +14,17 @@ const okBtn = document.getElementById("ok");
 const gridContainer = document.querySelector("main .container");
 let library = [];
 
+// let object = new Book("Separation", "abbie", 421, true);
+// let object2 = new Book("Rich Dad, Poor Dad", "Rob", 421, true);
+
+// library.push(object);
+// library.push(object2);
+
+// let title = "Separation";
+// let newArr = library.filter(bookObj => bookObj.title !== title);
+// console.log(library);
+// console.log(newArr);
+
 showCorrectThemeToggle();
 
 addBookBtn.addEventListener("click", showForm);
@@ -64,112 +75,66 @@ function addBookToArray(){
         errorMsg.classList.add("show-error");
     }else{
         library.push(newBook);
+        hideForm();
     }
-    // displayBookCard(library);
-    hideForm();
+    updateGridContainer();
 }; 
 
-function hideForm(){
-    shadow.setAttribute("class", "hide");
-    form.setAttribute("class", "hide");
-    errorMsg.classList.remove("show-error");
-    form.reset();
+function setBookCard(book){
+    const card = document.createElement("div");
+    const title = document.createElement("p");
+    const author = document.createElement("p");
+    const pageNumber = document.createElement("p");
+    const bookReadBtn = document.createElement('button');
+    const removeBtn = document.createElement('button');
+    card.setAttribute("class", "card");
+    title.setAttribute("class", "entry");
+    title.setAttribute("id", "title-entry");
+    author.setAttribute("class", "entry");
+    author.setAttribute("id", "author-entry");
+    pageNumber.setAttribute("class", "entry");
+    pageNumber.setAttribute("id", "page-number-entry");
+    bookReadBtn.setAttribute("id", "boolean-btn");
+    bookReadBtn.setAttribute("class", "false");
+    bookReadBtn.onclick = setbookReadBool;
+    removeBtn.setAttribute("id", "remove-btn");
+    removeBtn.onclick = removeBook;
+    title.textContent = book.title;
+    author.textContent = book.author;
+    pageNumber.textContent = `${book.pageNumber} pages`;
+
+    if(book.isRead){
+        bookReadBtn.setAttribute("class", "true");
+        bookReadBtn.textContent = "You've read this book";
+    }else{
+        bookReadBtn.setAttribute("class", "false");
+        bookReadBtn.textContent = "You haven't read this book";
+    }
+    removeBtn.textContent = "Remove";
+
+
+    gridContainer.appendChild(card);
+    card.appendChild(title);
+    card.appendChild(author);
+    card.appendChild(pageNumber);
+    card.appendChild(bookReadBtn);
+    card.appendChild(removeBtn);
 };
 
-function createCard(){
-    let div = document.createElement("div");
-    div.setAttribute("class", "card");
-    return div;
-};
-
-function createCardInnerElements(){
-    let pArray = [];
-
-    for(let i = 0;i < 3;i++){
-        let p = document.createElement("p");
-        p.setAttribute("class", "entry");
-        if(i === 0){
-            p.setAttribute("id", "title-entry");
-        }else if(i === 1){
-            p.setAttribute("id", "author-entry");
-        }else if(i === 2){
-            p.setAttribute("id", "page-number-entry");
-        }
-        pArray.push(p);
+function updateGridContainer(){
+    gridContainer.innerHTML = "";
+    for(let book of library){
+        setBookCard(book);
     };
-
-    let divArray = [];
-
-    for(let i = 0;i < 2;i++){
-        let div = document.createElement("button");
-        if(i === 0){
-            div.setAttribute("id", "boolean-btn");
-            div.setAttribute("class", "false");
-        }else if(i === 1){
-            div.setAttribute("id", "remove-btn");
-        }
-        divArray.push(div);
-    };
-    return pArray.concat(divArray);
 };
 
 // console.log(gridContainer.dataset.indexNumber);
 
-
-function displayBookCard(){
-    let card = createCard();
-    let elementsArray = createCardInnerElements();
-    
-    gridContainer.appendChild(card);
-    setBookInfo(elementsArray, card);
-
-};
-
-function setBookInfo(array, card){
-    let bookDetails = [];
-    for(let elem of array){
-        card.appendChild(elem);
-    };
-    const title = array[0];
-    const author = array[1];
-    const pageNumber = array[2];
-    const bookReadBtn = array[3];
-    bookReadBtn.onclick = setbookReadBool;
-    bookReadBtnGlobal = bookReadBtn;
-    const removeBtn = array[4];
-    // console.log(library[0]);
-    for(let book of library){
-
-        for(let prop in book){
-            bookDetails.push(book[prop]);
-        };
-    };
-
-    title.textContent = bookDetails[0];
-    author.textContent = bookDetails[1];
-    pageNumber.textContent = bookDetails[2];
-    removeBtn.textContent = "Remove";
-    let bookReadBool = bookDetails[3];
-    styleBookReadBtn(bookReadBtn, bookReadBool);
-    // removeBtn.addEventListener("click", ); remove card function
-    bookDetails = [];
-
-};
-
-function setbookReadBool(){
-    bookReadBoolGlobal = bookReadBoolGlobal? false: true;
-    console.log(bookReadBoolGlobal);
-    styleBookReadBtn(bookReadBtnGlobal);
-};
-
-function styleBookReadBtn(button, bool){
-    if(bool){
-        button.setAttribute("class", "true");
-        button.textContent = "You've read this book";
-    }else{
-        button.setAttribute("class", "false");
-        button.textContent = "You haven't read this book";
-    }
+function setbookReadBool(e){
+    let title = e.target.parentNode.firstChild.innerHTML;
+    let book = library.find(book => book.title === title);
+    book.isRead = book.isRead? false: true;
+    updateGridContainer();
 };
 
 function switchTheme(){
@@ -199,10 +164,15 @@ function showForm(){
     }
 };
 
-// Book.prototype.getInfo = function (){
-//     if(this.bookHasBeenRead){
-//         return `${this.title} by ${this.author}, ${this.pageNumber} pages, book read.`;
-//     }else{
-//         return `${this.title} by ${this.author}, ${this.pageNumber} pages, book not read yet.`;
-//     };
-// }
+function hideForm(){
+    shadow.setAttribute("class", "hide");
+    form.setAttribute("class", "hide");
+    errorMsg.classList.remove("show-error");
+    form.reset();
+};
+
+function removeBook(e){
+    let title = e.target.parentNode.firstChild.innerHTML;
+    // let book = library.find(book => book.title === title);
+    library = library.filter(book => book.title !== title);
+};
