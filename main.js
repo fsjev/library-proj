@@ -14,17 +14,6 @@ const okBtn = document.getElementById("ok");
 const gridContainer = document.querySelector("main .container");
 let library = [];
 
-// let object = new Book("Separation", "abbie", 421, true);
-// let object2 = new Book("Rich Dad, Poor Dad", "Rob", 421, true);
-
-// library.push(object);
-// library.push(object2);
-
-// let title = "Separation";
-// let newArr = library.filter(bookObj => bookObj.title !== title);
-// console.log(library);
-// console.log(newArr);
-
 showCorrectThemeToggle();
 
 addBookBtn.addEventListener("click", showForm);
@@ -175,4 +164,5 @@ function removeBook(e){
     let title = e.target.parentNode.firstChild.innerHTML;
     // let book = library.find(book => book.title === title);
     library = library.filter(book => book.title !== title);
+    updateGridContainer();
 };
